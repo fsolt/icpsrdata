@@ -14,7 +14,7 @@
 #' @details 
 #'  To avoid requiring others to edit your scripts to insert their own contact 
 #'  information, the default is set to fetch this information from the user's 
-#'  .Rprofile.  Before running \code{pew_download}, then, you should be sure to
+#'  .Rprofile.  Before running \code{icpsr_download}, then, you should be sure to
 #'  add these options to your .Rprofile substituting your info for the example below:
 #'
 #'  \code{
@@ -26,11 +26,11 @@
 #'
 #' @examples
 #' \dontrun{
-#'  pew_download(file_id = c(35119, 34348))
+#'  icpsr_download(file_id = c(35119, 34348))
 #' }
 #'
 #' @export
-pew_download <- function(file_id, 
+icpsr_download <- function(file_id, 
                          email = getOption("icpsr_email"),
                          pass = getOption("icpsr_pass"),
                          download_dir = "icpsr_data",
