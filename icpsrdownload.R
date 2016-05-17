@@ -72,11 +72,11 @@ bundle=all&ds=1&dups=yes")
     # navigate to download page and fill in required contact information
     remDr$navigate(url)
 
-    remDr$findElement(using = ".submit", "I Agree")$clickElement()
+    remDr$findElement(using = "name", ".submit")$clickElement()
       
-    remDr$findElement(using = "email", "Email")$sendKeysToElement(list(email))
-    remDr$findElement(using = "password", "Password")$sendKeysToElement(list(pass))
-    remDr$findElement(using = "Log In", "Log In")$clickElement()    
+    remDr$findElement(using = "name", "email")$sendKeysToElement(list(email))
+    remDr$findElement(using = "name","password")$sendKeysToElement(list(pass))
+    remDr$findElement(using = "name", "Log In")$clickElement()    
   
     
     # Switch back to first window
