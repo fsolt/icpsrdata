@@ -92,7 +92,7 @@ bundle=all&ds=1&dups=yes")
   remDr$close()
   
   if (unzip == TRUE) {
-    lapply(dd_new, function(x) unzip(paste0(download_dir, "/", x), exdir = paste0(download_dir, "/", gsub(".zip", "", x))))
+    lapply(dd_new, function(x) unzip(paste0(download_dir, "/", x), exdir = paste0(download_dir, "/")))
   }
   if (delete_zip == TRUE) {
     invisible(file.remove(paste0(download_dir, "/", dd_new)))
