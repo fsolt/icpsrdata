@@ -26,7 +26,7 @@
 #'
 #' @examples
 #' \dontrun{
-#'  icpsr_download(file_id = c(3730, 3972))
+#'  icpsr_download(file_id = c(3730, 36138))
 #' }
 #'
 #' @export
@@ -56,11 +56,12 @@ icpsr_download <- function(file_id,
   dd_old <- list.files(download_dir)
   
   # Loop through files
-  for (item in file_id) {  
+  for (i in seq(file_id)) { 
+    item <- file_id[[i]]
     if(msg) message("Downloading ICPSR file: ", item, sprintf(" (%s)", Sys.time()))
     
     # build url
-  url <- paste0("http://www.icpsr.umich.edu/cgi-bin/terms?path=ICPSR&study=", item)
+    url <- paste0("http://www.icpsr.umich.edu/cgi-bin/terms?path=ICPSR&study=", item)
     
   
   ####### DOWN BELOW HERE #######
@@ -72,12 +73,13 @@ icpsr_download <- function(file_id,
     remDr$navigate(url)
 
     remDr$findElement(using = "name", ".submit")$clickElement()
-      
-    remDr$findElement(using = "name", "email")$sendKeysToElement(list(email))
-    remDr$findElement(using = "name","password")$sendKeysToElement(list(password))
-    remDr$findElement(using = "name", "Log In")$clickElement()    
-  
     
+    if (i == 1) { 
+        remDr$findElement(using = "name", "email")$sendKeysToElement(list(email))
+        remDr$findElement(using = "name","password")$sendKeysToElement(list(password))
+        remDr$findElement(using = "name", "Log In")$clickElement()         
+    }
+   
     # Switch back to first window
     remDr$switchToWindow(remDr$getWindowHandles()[[1]])
   }
