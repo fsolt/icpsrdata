@@ -1,10 +1,10 @@
-#' Download datasets from ICPSR at University of Michigan
+#' Download datasets from ICPSR
 #'
-#' \code{icpsr_download} provides a programmatic and reproducible means to download survey datasets from the Pew Research Center 
+#' \code{icpsr_download} provides a programmatic and reproducible means to download datasets from the Inter-university Consortium for Political and Social Research 
 #'
 #' @param file_id The unique identifier (or optionally a vector of these identifiers)
 #'  for the dataset(s) to be downloaded (see details).
-#' @param user email and password to submit to Pew Research Center (see details)
+#' @param email, password Your ICPSR email and password (see details)
 #' @param download_dir The directory (relative to your working directory) to
 #'   which files from the Pew Research Center will be downloaded.
 #' @param msg If TRUE, outputs a message showing which data set is being downloaded.
@@ -12,27 +12,27 @@
 #' @param delete_zip If TRUE, the downloaded zip files will be deleted.
 #'
 #' @details 
-#'  To avoid requiring others to edit your scripts to insert their own contact 
-#'  information, the default is set to fetch this information from the user's 
+#'  To avoid requiring others to edit your scripts to insert their own email and  
+#'  password, the default is set to fetch this information from the user's 
 #'  .Rprofile.  Before running \code{icpsr_download}, then, you should be sure to
 #'  add these options to your .Rprofile substituting your info for the example below:
 #'
 #'  \code{
-#'   options("icpsr_email" = "juanita-herrara@uiowa.edu",
-#'          "icpsr_pass" = "password123!")
+#'   options("icpsr_email" = "juanita-herrara@uppermidwest.edu",
+#'          "icpsr_password" = "password123!")
 #'  }
 #'
 #' @return The function returns downloaded files.
 #'
 #' @examples
 #' \dontrun{
-#'  icpsr_download(file_id = c(35119, 34348))
+#'  icpsr_download(file_id = c(3730, 3972))
 #' }
 #'
 #' @export
 icpsr_download <- function(file_id, 
                          email = getOption("icpsr_email"),
-                         pass = getOption("icpsr_pass"),
+                         password = getOption("icpsr_password"),
                          download_dir = "icpsr_data",
                          msg = TRUE,
                          unzip = TRUE,
@@ -60,8 +60,7 @@ icpsr_download <- function(file_id,
     if(msg) message("Downloading ICPSR file: ", item, sprintf(" (%s)", Sys.time()))
     
     # build url
-  url <- paste0("http://www.icpsr.umich.edu/cgi-bin/terms?path=ICPSR&study=", item, "&
-bundle=all&ds=1&dups=yes")
+  url <- paste0("http://www.icpsr.umich.edu/cgi-bin/terms?path=ICPSR&study=", item)
     
   
   ####### DOWN BELOW HERE #######
@@ -75,7 +74,7 @@ bundle=all&ds=1&dups=yes")
     remDr$findElement(using = "name", ".submit")$clickElement()
       
     remDr$findElement(using = "name", "email")$sendKeysToElement(list(email))
-    remDr$findElement(using = "name","password")$sendKeysToElement(list(pass))
+    remDr$findElement(using = "name","password")$sendKeysToElement(list(password))
     remDr$findElement(using = "name", "Log In")$clickElement()    
   
     
