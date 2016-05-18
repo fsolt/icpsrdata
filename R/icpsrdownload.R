@@ -57,39 +57,41 @@ icpsr_download <- function(file_id,
   
   # Loop through files
   for (i in seq(file_id)) { 
-    item <- file_id[[i]]
-    if(msg) message("Downloading ICPSR file: ", item, sprintf(" (%s)", Sys.time()))
-    
-    # build url
-    url <- paste0("http://www.icpsr.umich.edu/cgi-bin/terms?path=ICPSR&study=", item)
-    
-  
-  ####### DOWN BELOW HERE #######
-  ### order of ops: navigate to download page, click ###
-  ### "I agree" button, provide credentials, click   ###  
-  ### "Submit" button                                ###
-  
-    # navigate to download page and fill in required contact information
-    remDr$navigate(url)
+      item <- file_id[[i]]
+      if(msg) message("Downloading ICPSR file: ", item, sprintf(" (%s)", Sys.time()))
+      
+      # build url
+      url <- paste0("http://www.icpsr.umich.edu/cgi-bin/terms?path=ICPSR&study=", item)
+      
+      # navigate to download page
+      remDr$navigate(url)
+      
+      # agree to terms
+      remDr$findElement(using = "name", ".submit")$clickElement()
+      
+      # log in
+      if (i == 1) { 
+          Sys.sleep(2)
+          remDr$findElement(using = "name", "email")$sendKeysToElement(list(email))
+          remDr$findElement(using = "name","password")$sendKeysToElement(list(password))
+          remDr$findElement(using = "name", "Log In")$clickElement()         
+      }
+      
+      # check that download has completed
+      file_id_name <- item 
+      while (nchar(file_id_name) < 5) file_id_name <- paste0("0", file_id_name) # pad out with zeroes as needed
+      zip_name <- paste0("ICPSR_", file_id_name, ".zip")
+      dd_new <- list.files(download_dir)[!list.files(download_dir) %in% dd_old]
+      while (!zip_name %in% dd_new) {
+          Sys.sleep(1)
+          dd_new <- list.files(download_dir)[!list.files(download_dir) %in% dd_old]          
+      }
 
-    remDr$findElement(using = "name", ".submit")$clickElement()
-    
-    if (i == 1) { 
-        remDr$findElement(using = "name", "email")$sendKeysToElement(list(email))
-        remDr$findElement(using = "name","password")$sendKeysToElement(list(password))
-        remDr$findElement(using = "name", "Log In")$clickElement()         
-    }
-   
-    # Switch back to first window
-    remDr$switchToWindow(remDr$getWindowHandles()[[1]])
+      # switch back to first window
+      remDr$switchToWindow(remDr$getWindowHandles()[[1]])
   }
   
-  # Confirm that downloads are completed, then close driver
-  dd_new <- list.files(download_dir)[!list.files(download_dir) %in% dd_old]
-  while (any(grepl("\\.zip\\.part", dd_new))) {
-    Sys.sleep(1)
-    dd_new <- list.files(download_dir)[!list.files(download_dir) %in% dd_old]
-  }
+  # Close driver
   remDr$close()
   
   if (unzip == TRUE) {
