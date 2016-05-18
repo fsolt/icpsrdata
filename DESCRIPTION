@@ -1,0 +1,20 @@
+Package: icpsrdata
+Type: Package
+Title: Reproducible Retrieval from the ICPSR Data Archive
+Version: 0.1.0
+Date: 2016-05-16
+Authors@R: c(
+    person("Frederick", "Solt", email = "frederick-solt@uiowa.edu", role = c("aut", "cre")),
+    person("Kellen", "Gracey", email = "kellen-gracey@uiowa.edu", role = c("aut")),
+    person("Eric", "Persson", email = "expersso5@gmail.com", role = c("ctb")))
+Description: Reproducible, programmatic retrieval of survey datasets from the
+    Pew Research Center.
+License: MIT + file LICENSE
+LazyData: TRUE
+Suggests:
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
+Imports:
+    RSelenium
+RoxygenNote: 5.0.1
