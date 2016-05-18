@@ -42,7 +42,7 @@ To avoid requiring others to edit your scripts to insert their own email and
 }
 \examples{
 \dontrun{
- icpsr_download(file_id = c(3730, 3972))
+ icpsr_download(file_id = c(3730, 36138))
 }
 
 }
