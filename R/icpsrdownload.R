@@ -4,7 +4,7 @@
 #'
 #' @param file_id The unique identifier (or optionally a vector of these identifiers)
 #'  for the dataset(s) to be downloaded (see details).
-#' @param email, password Your ICPSR email and password (see details)
+#' @param email,password Your ICPSR email and password (see details)
 #' @param download_dir The directory (relative to your working directory) to
 #'   which files from the Pew Research Center will be downloaded.
 #' @param msg If TRUE, outputs a message showing which data set is being downloaded.
