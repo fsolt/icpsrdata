@@ -1,0 +1,51 @@
+---
+title: "icpsrdata: Reproducible Retrieval of Pew Research Center Datasets"
+author: "Frederick Solt"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{icpsrdata: Reproducible Retrieval of Pew Research Center Datasets}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+
+The [Inter-university Consortium for Political and Social Research](http://www.icpsr.umich.edu), in its own words, "provides leadership and training in data access, curation, and methods of analysis for a diverse and expanding social science research community."  The ICPSR data archive stores thousands of datasets on a wide range of topics.  Researchers taking advantage of these datasets, however, are caught in a bind.  The terms and conditions for downloading any ICPSR dataset state that one agrees "not to redistribute data or other materials without the written agreement of ICPSR."[^1] But to ensure that one's work can be reproduced, assessed, and built upon by others, one must provide access to the raw data one employed.  The `icpsrdata` package cuts this knot by providing programmatic, reproducible access to ICPSR's datasets from within R. 
+
+## Setup
+
+`icpsrdata` depends on the Firefox browser; if it is not installed, [get it here](https://www.mozilla.org/firefox).
+
+An optional, but recommended, setup step is to add the information ICPSR requires to your [.Rprofile](http://www.statmethods.net/interface/customizing.html) as in the following example:
+
+```{r eval = FALSE}
+options("icpsr_email" = "juanita-herrera@uppermidwest.edu",
+        "icpsr_password" = "password123!")
+```
+
+The `icpsr_download` function will then access the information it needs to pass on to ICPSR by default.  This means that researchers will not have to expose their info in their R scripts and that others reproducing their results later will be able to execute those R scripts without modification.  (They will, however, need to enter their own information into their own .Rprofiles, a detail that should be noted in the reproducibility materials to avoid confusion.)
+
+
+## Use
+
+The `icpsr_download` function (1) opens a Firefox browser pointed to a specified dataset, (2) enters the required information and agrees to the terms and conditions of the download, (3) downloads the dataset's files, and, optionally but by default, (4) decompresses the dataset's files to a subdirectory within a specified directory (or, by default, a `icpsr_data` directory in the current working directory).
+
+Datasets are specified using the `file_id` argument.  ICPSR uses a unique number to identify each of its datasets; this number is consistently listed alongside the dataset's name.  For the [2014 Transatlantic Trends Survey](http://www.icpsr.umich.edu/icpsrweb/ICPSR/series/235/studies/36138), for example, the file id is 36138:
+
+<img src="icpsr_tt2014.png" style="width: 100%;"/>
+
+To reproducibly download this dataset:
+
+```{r eval=FALSE}
+icpsr_download(file_id = 36138)
+```
+
+Multiple datasets may be downloaded from the same research area in a single command by passing a vector of ids to `file_id`.  The following downloads the Transatlantic Trends surveys for 2012, 2013, and 2014:
+
+```{r eval=FALSE}
+icpsr_download(file_id = c(34715, 34973, 36138))
+```
+
+After the needed datasets are downloaded, they are, by default, unzipped and ready to be loaded into R using, e.g., `rio::import`.
+
+[^1]: The terms _do_ include an exception for "collaborating with other AUTHORIZED USERS to analyze the data for research or instructional purposes" with attribution, but the limitation to ICPSR's authorized users renders this inadequate for the public provision of materials for reproducibility.
