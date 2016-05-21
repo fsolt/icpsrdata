@@ -6,7 +6,10 @@ icpsrdata
 `icpsrdata` is an R package that provides reproducible, programmatic access to datasets stored in the [Inter-university Consortium for Political and Social Research archive](http://www.icpsr.umich.edu).
 
 
-`icpsrdata` is not yet on CRAN.  To install the latest development version: 
+To install:
+
+* the latest released version: `install.packages("icpsrdata")`
+* the latest development version:
 
 ```R
 if (!require(ghit)) install.packages("ghit")
@@ -14,3 +17,4 @@ ghit::install_github("fsolt/icpsrdata")
 ```
 Note that `icpsrdata` depends on the Firefox browser; if you don't already have it installed on your machine, [get it here](https://www.mozilla.org/firefox).
 
+For more details, check out [the vignette](https://cran.r-project.org/web/packages/icpsrdata/vignettes/icpsrdata-vignette.html).
