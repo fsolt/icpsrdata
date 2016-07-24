@@ -52,7 +52,7 @@ icpsr_download <- function(file_id,
   remDr$open(silent = TRUE)
   
   # Get list of current download directory contents
-  if (!dir.exists(download_dir)) dir.create(download_dir)
+  if (!dir.exists(download_dir)) dir.create(download_dir, recursive = TRUE)
   dd_old <- list.files(download_dir)
   
   # Loop through files
