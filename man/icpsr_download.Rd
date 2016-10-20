@@ -5,14 +5,17 @@
 \title{Download datasets from ICPSR}
 \usage{
 icpsr_download(file_id, email = getOption("icpsr_email"),
-  password = getOption("icpsr_password"), download_dir = "icpsr_data",
-  msg = TRUE, unzip = TRUE, delete_zip = TRUE)
+  password = getOption("icpsr_password"), reset = FALSE,
+  download_dir = "icpsr_data", msg = TRUE, unzip = TRUE,
+  delete_zip = TRUE)
 }
 \arguments{
 \item{file_id}{The unique identifier (or optionally a vector of these identifiers)
 for the dataset(s) to be downloaded (see details).}
 
 \item{email, password}{Your ICPSR email and password (see details)}
+
+\item{reset}{If TRUE, you will be asked to re-enter your ICPSR email and password.}
 
 \item{download_dir}{The directory (relative to your working directory) to
 which files from the Pew Research Center will be downloaded.}
@@ -31,9 +34,10 @@ The function returns downloaded files.
 }
 \details{
 To avoid requiring others to edit your scripts to insert their own email and  
- password, the default is set to fetch this information from the user's 
- .Rprofile.  Before running \code{icpsr_download}, then, you should be sure to
- add these options to your .Rprofile substituting your info for the example below:
+ password or to force them to do so interactively, the default is set to fetch 
+ this information from the user's .Rprofile.  Before running \code{icpsr_download}, 
+ then, you should be sure to add these options to your .Rprofile substituting your 
+ info for the example below:
 
  \code{
   options("icpsr_email" = "juanita-herrara@uppermidwest.edu",

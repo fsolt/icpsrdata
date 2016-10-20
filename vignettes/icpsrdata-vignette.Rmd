@@ -1,10 +1,10 @@
 ---
-title: "icpsrdata: Reproducible Retrieval of Pew Research Center Datasets"
+title: "icpsrdata: Reproducible Data Retrieval from the ICPSR Archive"
 author: "Frederick Solt"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{icpsrdata: Reproducible Retrieval of Pew Research Center Datasets}
+  %\VignetteIndexEntry{icpsrdata: Reproducible Data Retrieval from the ICPSR Archive}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -14,9 +14,12 @@ The [Inter-university Consortium for Political and Social Research](http://www.i
 
 ## Setup
 
-`icpsrdata` depends on the Firefox browser; if it is not installed, [get it here](https://www.mozilla.org/firefox).
+When used interactively, the `icpsr_download` function will be ask for the login information required by ICPSR: the user's email and password. 
+After that information is input once, it will be entered automatically for any other download requests made in the same session.
 
-An optional, but recommended, setup step is to add the information ICPSR requires to your [.Rprofile](http://www.statmethods.net/interface/customizing.html) as in the following example:
+To change this contact information within a session, one may set the argument `reset` to `TRUE` when running `icpsr_download` again, and the function will again request the required information. 
+
+An optional, but highly recommended, setup step is to add the login information ICPSR requires to your [.Rprofile](http://www.statmethods.net/interface/customizing.html) as in the following example:
 
 ```{r eval = FALSE}
 options("icpsr_email" = "juanita-herrera@uppermidwest.edu",
@@ -28,7 +31,7 @@ The `icpsr_download` function will then access the information it needs to pass 
 
 ## Use
 
-The `icpsr_download` function (1) opens a Firefox browser pointed to a specified dataset, (2) enters the required information and agrees to the terms and conditions of the download, (3) downloads the dataset's files, and, optionally but by default, (4) decompresses the dataset's files to a subdirectory within a specified directory (or, by default, a `icpsr_data` directory in the current working directory).
+The `icpsr_download` function (1) simulates a visit to the website of the specified ICPSR dataset, (2) enters the required information and agrees to the terms and conditions of the download, (3) downloads the dataset's files, and, optionally but by default, (4) decompresses the dataset's files to a subdirectory within a specified directory (or, by default, a `icpsr_data` directory in the current working directory).
 
 Datasets are specified using the `file_id` argument.  ICPSR uses a unique number to identify each of its datasets; this number is consistently listed alongside the dataset's name.  For the [2014 Transatlantic Trends Survey](http://www.icpsr.umich.edu/icpsrweb/ICPSR/series/235/studies/36138), for example, the file id is 36138:
 
