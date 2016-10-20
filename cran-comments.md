@@ -1,7 +1,7 @@
 ## Test environments
 * Local OS X install, R 3.3.1
 * Ubuntu 12.04.5 (on travis-ci), R 3.3.1
-* win-builder (R Under development (unstable) (2016-07-24 r70964))
+* win-builder (R Under development (unstable) (2016-10-20 r71540))
 
 ## R CMD check results
 0 errors | 0 warnings | 1 notes
