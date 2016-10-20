@@ -32,8 +32,7 @@
 #' }
 #' 
 #' @importFrom rvest html_session html_form set_values submit_form jump_to follow_link
-#' @importFrom magrittr "%>%"
-#' @importFrom purrr walk
+#' @importFrom purrr walk "%>%"
 #' 
 #' @export
 icpsr_download <- function(file_id, 
