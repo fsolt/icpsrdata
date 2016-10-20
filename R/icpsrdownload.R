@@ -33,6 +33,7 @@
 #' 
 #' @importFrom rvest html_session html_form set_values submit_form jump_to follow_link
 #' @importFrom purrr walk "%>%"
+#' @importFrom httr content
 #' 
 #' @export
 icpsr_download <- function(file_id, 
@@ -78,9 +79,10 @@ icpsr_download <- function(file_id,
             set_values(email = email,
                        password = password)
         
-        suppressMessages(output <- submit_form(s, form) %>% 
-            jump_to(url) %>%
-            submit_form(., html_form(.)[[3]]) %>% 
+        suppressMessages(agree_terms <- submit_form(s, form) %>% 
+            jump_to(url))
+        suppressMessages(output <- submit_form(agree_terms, 
+                                               html_form(agree_terms)[[3]]) %>% 
             follow_link("download your files here"))
         
         file_name <- paste0("ICPSR_", sprintf("%05d", item), ".zip")

@@ -17,5 +17,6 @@ Suggests:
 VignetteBuilder: knitr
 Imports:
     purrr,
-    rvest
+    rvest,
+    httr
 RoxygenNote: 5.0.1
