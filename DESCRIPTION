@@ -1,8 +1,8 @@
 Package: icpsrdata
 Type: Package
 Title: Reproducible Data Retrieval from the ICPSR Archive
-Version: 0.2.0
-Date: 2016-10-20
+Version: 0.3.0
+Date: 2016-12-08
 Authors@R: c(
     person("Frederick", "Solt", email = "frederick-solt@uiowa.edu", role = c("aut", "cre")),
     person("Kellen", "Gracey", email = "kellen-gracey@uiowa.edu", role = c("aut")),
