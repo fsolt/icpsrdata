@@ -7,7 +7,7 @@
 icpsr_download(file_id, email = getOption("icpsr_email"),
   password = getOption("icpsr_password"), reset = FALSE,
   download_dir = "icpsr_data", msg = TRUE, unzip = TRUE,
-  delete_zip = TRUE)
+  delete_zip = unzip)
 }
 \arguments{
 \item{file_id}{The unique identifier (or optionally a vector of these identifiers)
@@ -18,7 +18,7 @@ for the dataset(s) to be downloaded (see details).}
 \item{reset}{If TRUE, you will be asked to re-enter your ICPSR email and password.}
 
 \item{download_dir}{The directory (relative to your working directory) to
-which files from the Pew Research Center will be downloaded.}
+which files from the ICPSR will be downloaded.}
 
 \item{msg}{If TRUE, outputs a message showing which data set is being downloaded.}
 
