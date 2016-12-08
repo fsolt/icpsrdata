@@ -7,7 +7,7 @@
 #' @param email,password Your ICPSR email and password (see details)
 #' @param reset If TRUE, you will be asked to re-enter your ICPSR email and password.
 #' @param download_dir The directory (relative to your working directory) to
-#'   which files from the Pew Research Center will be downloaded.
+#'   which files from the ICPSR will be downloaded.
 #' @param msg If TRUE, outputs a message showing which data set is being downloaded.
 #' @param unzip If TRUE, the downloaded zip files will be unzipped.
 #' @param delete_zip If TRUE, the downloaded zip files will be deleted.
@@ -43,7 +43,7 @@ icpsr_download <- function(file_id,
                            download_dir = "icpsr_data",
                            msg = TRUE,
                            unzip = TRUE,
-                           delete_zip = TRUE) {
+                           delete_zip = unzip) {
     
     # Detect login info
     if (reset){
