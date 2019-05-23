@@ -1,3 +1,7 @@
+## Version 0.4.0
+1. Reverts back to `RSelenium` implementation after changes in ICPSR website
+1. Drops `unzip` and `delete_zip` arguments (both fixed to `TRUE`)
+
 ## Version 0.3.0
 Provides better default for `delete_zip` argument; corrects documentation.
 
