@@ -14,6 +14,9 @@
 #'   may help.
 #'
 #' @details 
+#'  \code{icpsr_download} requires the Chrome browser to be installed on your machine.  
+#'  Get it from https://www.google.com/chrome/
+#' 
 #'  To avoid requiring others to edit your scripts to insert their own email and  
 #'  password or to force them to do so interactively, the default is set to fetch 
 #'  this information from the user's .Rprofile.  Before running \code{icpsr_download}, 

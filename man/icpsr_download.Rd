@@ -32,7 +32,10 @@ The function returns downloaded files.
 \code{icpsr_download} provides a programmatic and reproducible means to download datasets from the Inter-university Consortium for Political and Social Research
 }
 \details{
-To avoid requiring others to edit your scripts to insert their own email and  
+\code{icpsr_download} requires the Chrome browser to be installed on your machine.  
+ Get it from https://www.google.com/chrome/
+
+ To avoid requiring others to edit your scripts to insert their own email and  
  password or to force them to do so interactively, the default is set to fetch 
  this information from the user's .Rprofile.  Before running \code{icpsr_download}, 
  then, you should be sure to add these options to your .Rprofile substituting your 
