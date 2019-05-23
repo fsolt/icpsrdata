@@ -38,6 +38,7 @@
 #' @import RSelenium
 #' @importFrom purrr walk
 #' @importFrom stringr str_detect
+#' @importFrom utils unzip
 #' 
 #' @export
 icpsr_download <- function(file_id, 
@@ -117,7 +118,7 @@ icpsr_download <- function(file_id,
         }
         
         # unzip into specified directory
-        unzip(file.path(default_dir, dd_new), exdir = file.path(download_dir))
+        utils::unzip(file.path(default_dir, dd_new), exdir = file.path(download_dir))
         unlink(file.path(default_dir, dd_new))
     })
     
