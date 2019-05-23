@@ -6,8 +6,7 @@
 \usage{
 icpsr_download(file_id, email = getOption("icpsr_email"),
   password = getOption("icpsr_password"), reset = FALSE,
-  download_dir = "icpsr_data", msg = TRUE, unzip = TRUE,
-  delete_zip = unzip)
+  download_dir = "icpsr_data", msg = TRUE, delay = 2)
 }
 \arguments{
 \item{file_id}{The unique identifier (or optionally a vector of these identifiers)
@@ -22,9 +21,9 @@ which files from the ICPSR will be downloaded.}
 
 \item{msg}{If TRUE, outputs a message showing which data set is being downloaded.}
 
-\item{unzip}{If TRUE, the downloaded zip files will be unzipped.}
-
-\item{delete_zip}{If TRUE, the downloaded zip files will be deleted.}
+\item{delay}{If the speed of your connection to ICPSR is particularly slow, 
+\code{icpsr_download} may encounter problems.  Increasing the \code{delay} parameter
+may help.}
 }
 \value{
 The function returns downloaded files.
@@ -50,4 +49,3 @@ To avoid requiring others to edit your scripts to insert their own email and
 }
 
 }
-
