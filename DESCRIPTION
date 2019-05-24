@@ -6,7 +6,8 @@ Date: 2019-05-23
 Authors@R: c(
     person("Frederick", "Solt", email = "frederick-solt@uiowa.edu", role = c("aut", "cre")),
     person("Kellen", "Gracey", email = "kellen-gracey@uiowa.edu", role = c("aut")),
-    person("Eric", "Persson", email = "expersso5@gmail.com", role = c("ctb")))
+    person("Eric", "Persson", email = "expersso5@gmail.com", role = c("ctb")),
+    person("Joanna", "Pepin", email = "jpepin@prc.utexas.edu", role = c("ctb")))
 Description: Reproducible, programmatic retrieval of datasets from the
     Inter-university Consortium for Political and Social Research archive.
 License: MIT + file LICENSE
