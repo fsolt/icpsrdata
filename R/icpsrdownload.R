@@ -9,14 +9,10 @@
 #' @param download_dir The directory (relative to your working directory) to
 #'   which files from the ICPSR will be downloaded.
 #' @param msg If TRUE, outputs a message showing which data set is being downloaded.
-#' @param delay If the speed of your connection to ICPSR is particularly slow, 
-#'   \code{icpsr_download} may encounter problems.  Increasing the \code{delay} parameter
-#'   may help.
+#' @param unzip If TRUE, the downloaded zip files will be unzipped.
+#' @param delete_zip If TRUE, the downloaded zip files will be deleted.
 #'
 #' @details 
-#'  \code{icpsr_download} requires the Chrome browser to be installed on your machine.  
-#'  Get it from https://www.google.com/chrome/
-#' 
 #'  To avoid requiring others to edit your scripts to insert their own email and  
 #'  password or to force them to do so interactively, the default is set to fetch 
 #'  this information from the user's .Rprofile.  Before running \code{icpsr_download}, 
@@ -35,10 +31,9 @@
 #'  icpsr_download(file_id = c(3730, 36138))
 #' }
 #' 
-#' @import RSelenium
-#' @importFrom purrr walk
-#' @importFrom stringr str_detect
-#' @importFrom utils unzip
+#' @importFrom rvest html_session html_form set_values submit_form jump_to follow_link
+#' @importFrom purrr walk "%>%"
+#' @importFrom httr content
 #' 
 #' @export
 icpsr_download <- function(file_id, 
@@ -47,82 +42,72 @@ icpsr_download <- function(file_id,
                            reset = FALSE,
                            download_dir = "icpsr_data",
                            msg = TRUE,
-                           delay = 2) {
+                           unzip = TRUE,
+                           delete_zip = unzip) {
     
     # Detect login info
-    if (reset) {
+    if (reset){
         email <- password <- NULL
     }
     
-    if (is.null(email)) {
+    if (is.null(email)){
         icpsr_email <- readline(prompt = "ICPSR requires your user account information.  Please enter your email address: \n")
         options("icpsr_email" = icpsr_email)
         email <- getOption("icpsr_email")
     }
     
-    if (is.null(password)) {
+    if (is.null(password)){
         icpsr_password <- readline(prompt = "Please enter your ICPSR password: \n")
         options("icpsr_password" = icpsr_password)
         password <- getOption("icpsr_password")
     }
     
-    # build path to chrome's default download directory
-    if (Sys.info()[["sysname"]]=="Linux") {
-        default_dir <- file.path("home", Sys.info()[["user"]], "Downloads")
-    } else {
-        default_dir <- file.path("", "Users", Sys.info()[["user"]], "Downloads")
-    }
-    
-    # create specified download directory if necessary
+    # Get list of current download directory contents
     if (!dir.exists(download_dir)) dir.create(download_dir, recursive = TRUE)
-    
-    # initialize driver
-    if(msg) message("Initializing RSelenium driver")
-    rD <- RSelenium::rsDriver(browser = "chrome")
-    remDr <- rD[["client"]]
-    
-    login_page <- "https://www.icpsr.umich.edu/rpxlogin?path=ICPSR&request_uri=https%3a%2f%2fwww.icpsr.umich.edu%2ficpsrweb%2findex.jsp"
-    remDr$navigate(login_page)
-    remDr$findElement(using = "name", "email")$sendKeysToElement(list(email))
-    remDr$findElement(using = "name", "password")$sendKeysToElement(list(password))
-    remDr$findElement(using = "name", "Log In")$clickElement()
-    Sys.sleep(delay)
+    dd_old <- list.files(download_dir)
     
     # Loop through files
-    purrr::walk(file_id, function(item) {
+    file_id %>% walk(function(item) {
         # show process
         if(msg) message("Downloading ICPSR file: ", item, sprintf(" (%s)", Sys.time()))
         
-        # get list of current default download directory contents
-        dd_old <- list.files(default_dir)
-        
-        # navigate to download page  
+        # build url
         url <- paste0("http://www.icpsr.umich.edu/cgi-bin/bob/zipcart2?path=ICPSR&study=", item, "&bundle=all&ds=&dups=yes")
-        remDr$navigate(url)
-        Sys.sleep(delay)
         
-        # agree to terms
-        remDr$findElement(using = "name", ".submit")$clickElement()
-
-        # check that download has completed
-        dd_new <- list.files(default_dir)[!list.files(default_dir) %in% dd_old]
-        wait <- TRUE
-        tryCatch(
-            while(all.equal(stringr::str_detect(dd_new, "\\.part$"), logical(0))) {
-                Sys.sleep(1)
-                dd_new <- list.files(default_dir)[!list.files(default_dir) %in% dd_old]
-            }, error = function(e) 1 )
-        while(any(stringr::str_detect(dd_new, "\\.crdownload$"))) {
-            Sys.sleep(1)
-            dd_new <- list.files(default_dir)[!list.files(default_dir) %in% dd_old]
-        }
+        s <- html_session(url)
+        form <- html_form(s)[[3]]
+        add_email <- list(name = "email",
+                          type = "text",
+                          value = email,
+                          checked = NULL,
+                          disabled = NULL,
+                          readonly = NULL,
+                          required = FALSE)
+        add_password <- list(name = "password",
+                             type = "password",
+                             value = password,
+                             checked = NULL,
+                             disabled = NULL,
+                             readonly = NULL,
+                             required = FALSE)
+        attr(add_email, "class") <- "input"
+        attr(add_password, "class") <- "input"
+        form[["fields"]][["email"]] <- add_email
+        form[["fields"]][["password"]] <- add_password
         
-        # unzip into specified directory
-        utils::unzip(file.path(default_dir, dd_new), exdir = file.path(download_dir))
-        unlink(file.path(default_dir, dd_new))
+        suppressMessages(agree_terms <- submit_form(s, form) %>% 
+                             jump_to(url))
+        suppressMessages(output <- submit_form(agree_terms, 
+                                               html_form(agree_terms)[[3]]) %>% 
+                             follow_link("download your files here"))
+        
+        file_name <- paste0("ICPSR_", sprintf("%05d", item), ".zip")
+        file_dir <- file.path(download_dir, file_name)
+        writeBin(httr::content(output$response, "raw"), file_dir)
+        
+        if (unzip == TRUE) unzip(file_dir, exdir = download_dir)
+        
+        if (delete_zip == TRUE) invisible(file.remove(file_dir))
+        
     })
-    
-    # Close driver
-    remDr$close()
-    rD[["server"]]$stop()
 }
