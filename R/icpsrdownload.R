@@ -13,6 +13,11 @@
 #' @param delete_zip If TRUE, the downloaded zip files will be deleted.
 #'
 #' @details 
+#'  \code{icpsr_download} provides a programmatic and reproducible means to download 
+#'  datasets from the Inter-university Consortium for Political and Social Research,
+#'  which requires a user account. Sign up for an account at https://www.icpsr.umich.edu
+#'  before proceeding.
+#' 
 #'  To avoid requiring others to edit your scripts to insert their own email and  
 #'  password or to force them to do so interactively, the default is set to fetch 
 #'  this information from the user's .Rprofile.  Before running \code{icpsr_download}, 
@@ -23,6 +28,10 @@
 #'   options("icpsr_email" = "juanita-herrara@uppermidwest.edu",
 #'          "icpsr_password" = "password123!")
 #'  }
+#'  
+#'  If this information is not found a user's .Rprofile, the function will also 
+#'  check in the .Renviron file.  Either file may be easily edited via 
+#'  \code{usethis::edit_r_profile()} or \code{usethis::edit_r_environ()}.
 #'
 #' @return The function returns downloaded files.
 #'
@@ -47,20 +56,28 @@ icpsr_download <- function(file_id,
                            delete_zip = unzip) {
     
     # Detect login info
-    if (reset){
+    if (reset) {
         email <- password <- NULL
     }
     
-    if (is.null(email)){
-        icpsr_email <- readline(prompt = "ICPSR requires your user account information.  Please enter your email address: \n")
-        options("icpsr_email" = icpsr_email)
+    if (is.null(email)) {
+        options("icpsr_email" = Sys.getenv("icpsr_email"))
         email <- getOption("icpsr_email")
+        if (is.null(email)) {
+            icpsr_email <- readline(prompt = "ICPSR requires your user account information.  Please enter your email address: \n")
+            options("icpsr_email" = icpsr_email)
+            email <- getOption("icpsr_email")
+        }
     }
     
-    if (is.null(password)){
-        icpsr_password <- readline(prompt = "Please enter your ICPSR password: \n")
-        options("icpsr_password" = icpsr_password)
+    if (is.null(password)) {
+        options("icpsr_password" = Sys.getenv("icpsr_password"))
         password <- getOption("icpsr_password")
+        if (is.null(password)) {
+            icpsr_password <- readline(prompt = "Please enter your ICPSR password: \n")
+            options("icpsr_password" = icpsr_password)
+            password <- getOption("icpsr_password")
+        }
     }
     
     # Get list of current download directory contents
@@ -105,10 +122,10 @@ icpsr_download <- function(file_id,
         file_name <- paste0("ICPSR_", sprintf("%05d", item), ".zip")
         file_dir <- file.path(download_dir, file_name)
         writeBin(httr::content(output$response, "raw"), file_dir)
-        
+        Sys.sleep(max(length(file_id), 3))
+
         if (unzip == TRUE) utils::unzip(file_dir, exdir = download_dir)
         
         if (delete_zip == TRUE) invisible(file.remove(file_dir))
-        
     })
 }

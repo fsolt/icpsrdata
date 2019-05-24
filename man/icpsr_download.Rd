@@ -33,7 +33,12 @@ The function returns downloaded files.
 \code{icpsr_download} provides a programmatic and reproducible means to download datasets from the Inter-university Consortium for Political and Social Research
 }
 \details{
-To avoid requiring others to edit your scripts to insert their own email and  
+\code{icpsr_download} provides a programmatic and reproducible means to download 
+ datasets from the Inter-university Consortium for Political and Social Research,
+ which requires a user account. Sign up for an account at https://www.icpsr.umich.edu
+ before proceeding.
+
+ To avoid requiring others to edit your scripts to insert their own email and  
  password or to force them to do so interactively, the default is set to fetch 
  this information from the user's .Rprofile.  Before running \code{icpsr_download}, 
  then, you should be sure to add these options to your .Rprofile substituting your 
@@ -43,6 +48,10 @@ To avoid requiring others to edit your scripts to insert their own email and
   options("icpsr_email" = "juanita-herrara@uppermidwest.edu",
          "icpsr_password" = "password123!")
  }
+ 
+ If this information is not found a user's .Rprofile, the function will also 
+ check in the .Renviron file.  Either file may be easily edited via 
+ \code{usethis::edit_r_profile()} or \code{usethis::edit_r_environ()}.
 }
 \examples{
 \dontrun{
