@@ -16,6 +16,4 @@ if (!require(remotes)) install.packages("remotes")
 remotes::install_github("fsolt/icpsrdata")
 ```
 
-`icpsr_download` also requires the Chrome browser to be installed on your machine.  Get it from <https://www.google.com/chrome/>
-
 For more details, check out [the vignette](https://cran.r-project.org/package=icpsrdata/vignettes/icpsrdata-vignette.html).
