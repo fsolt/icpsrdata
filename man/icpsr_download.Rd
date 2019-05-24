@@ -6,7 +6,8 @@
 \usage{
 icpsr_download(file_id, email = getOption("icpsr_email"),
   password = getOption("icpsr_password"), reset = FALSE,
-  download_dir = "icpsr_data", msg = TRUE, delay = 2)
+  download_dir = "icpsr_data", msg = TRUE, unzip = TRUE,
+  delete_zip = unzip)
 }
 \arguments{
 \item{file_id}{The unique identifier (or optionally a vector of these identifiers)
@@ -21,9 +22,9 @@ which files from the ICPSR will be downloaded.}
 
 \item{msg}{If TRUE, outputs a message showing which data set is being downloaded.}
 
-\item{delay}{If the speed of your connection to ICPSR is particularly slow, 
-\code{icpsr_download} may encounter problems.  Increasing the \code{delay} parameter
-may help.}
+\item{unzip}{If TRUE, the downloaded zip files will be unzipped.}
+
+\item{delete_zip}{If TRUE, the downloaded zip files will be deleted.}
 }
 \value{
 The function returns downloaded files.
@@ -32,10 +33,7 @@ The function returns downloaded files.
 \code{icpsr_download} provides a programmatic and reproducible means to download datasets from the Inter-university Consortium for Political and Social Research
 }
 \details{
-\code{icpsr_download} requires the Chrome browser to be installed on your machine.  
- Get it from https://www.google.com/chrome/
-
- To avoid requiring others to edit your scripts to insert their own email and  
+To avoid requiring others to edit your scripts to insert their own email and  
  password or to force them to do so interactively, the default is set to fetch 
  this information from the user's .Rprofile.  Before running \code{icpsr_download}, 
  then, you should be sure to add these options to your .Rprofile substituting your 
