@@ -33,7 +33,7 @@ The `icpsr_download` function will then access the information it needs to pass 
 
 The `icpsr_download` function (1) simulates a visit to the website of the specified ICPSR dataset (2) enters the required information and agrees to the terms and conditions of the download, (3) downloads the dataset's files, and, optionally but by default, (4) decompresses the dataset's files to a subdirectory within a specified directory (or, by default, a `icpsr_data` directory in the current working directory).
 
-Datasets are specified using the `file_id` argument.  ICPSR uses a unique number to identify each of its datasets; this number is consistently listed alongside the dataset's name.  For the [2014 Transatlantic Trends Survey](http://www.icpsr.umich.edu/icpsrweb/ICPSR/series/235/studies/36138), for example, the file id is 36138:
+Datasets are specified using the `file_id` argument.  ICPSR uses a unique number to identify each of its datasets; this number is consistently listed alongside the dataset's name.  For the [2014 Transatlantic Trends Survey](https://www.icpsr.umich.edu/icpsrweb/ICPSR/studies/36138), for example, the file id is 36138:
 
 <img src="icpsr_tt2014.png" style="width: 100%;"/>
 
