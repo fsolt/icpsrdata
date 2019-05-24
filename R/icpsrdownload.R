@@ -34,6 +34,7 @@
 #' @importFrom rvest html_session html_form set_values submit_form jump_to follow_link
 #' @importFrom purrr walk "%>%"
 #' @importFrom httr content
+#' @importFrom utils unzip
 #' 
 #' @export
 icpsr_download <- function(file_id, 
@@ -105,7 +106,7 @@ icpsr_download <- function(file_id,
         file_dir <- file.path(download_dir, file_name)
         writeBin(httr::content(output$response, "raw"), file_dir)
         
-        if (unzip == TRUE) unzip(file_dir, exdir = download_dir)
+        if (unzip == TRUE) utils::unzip(file_dir, exdir = download_dir)
         
         if (delete_zip == TRUE) invisible(file.remove(file_dir))
         
