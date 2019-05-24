@@ -1,6 +1,6 @@
 ## Version 0.4.0
-1. Reverts back to `RSelenium` implementation after changes in ICPSR website
-1. Drops `unzip` and `delete_zip` arguments (both fixed to `TRUE`)
+1. Update for revisions to ICPSR website
+1. Allows email and password to be stored in `.Renviron` for those with a strong preference for keeping account information there.  Saving login information in `.Rprofile` still works as before.
 
 ## Version 0.3.0
 Provides better default for `delete_zip` argument; corrects documentation.
