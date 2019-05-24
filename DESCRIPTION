@@ -17,7 +17,8 @@ Suggests:
     rmarkdown
 VignetteBuilder: knitr
 Imports:
+    rvest,
     purrr,
-    RSelenium,
-    stringr
+    httr,
+    utils
 RoxygenNote: 6.1.1
