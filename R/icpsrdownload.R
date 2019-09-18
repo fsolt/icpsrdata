@@ -63,7 +63,8 @@ icpsr_download <- function(file_id,
     if (is.null(email)) {
         options("icpsr_email" = Sys.getenv("icpsr_email"))
         email <- getOption("icpsr_email")
-        if (is.null(email)) {
+        if (nchar(email) == 0) email <- NULL
+        if (is.null(email)) { 
             icpsr_email <- readline(prompt = "ICPSR requires your user account information.  Please enter your email address: \n")
             options("icpsr_email" = icpsr_email)
             email <- getOption("icpsr_email")
@@ -73,6 +74,7 @@ icpsr_download <- function(file_id,
     if (is.null(password)) {
         options("icpsr_password" = Sys.getenv("icpsr_password"))
         password <- getOption("icpsr_password")
+        if (nchar(password) == 0) password <- NULL
         if (is.null(password)) {
             icpsr_password <- readline(prompt = "Please enter your ICPSR password: \n")
             options("icpsr_password" = icpsr_password)
