@@ -95,7 +95,7 @@ icpsr_download <- function(file_id,
         url <- paste0("http://www.icpsr.umich.edu/cgi-bin/bob/zipcart2?path=ICPSR&study=", item, "&bundle=all&ds=&dups=yes")
         
         s <- html_session(url)
-        form <- html_form(s)[[3]]
+        form <- html_form(s)[[2]]
         add_email <- list(name = "email",
                           type = "text",
                           value = email,
@@ -118,7 +118,7 @@ icpsr_download <- function(file_id,
         suppressMessages(agree_terms <- submit_form(s, form) %>% 
                              jump_to(url))
         suppressMessages(output <- submit_form(agree_terms, 
-                                               html_form(agree_terms)[[3]]) %>% 
+                                               html_form(agree_terms)[[2]]) %>% 
                              follow_link("download your files here"))
         
         file_name <- paste0("ICPSR_", sprintf("%05d", item), ".zip")
