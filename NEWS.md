@@ -1,3 +1,6 @@
+## Version 0.5.0
+1. Update for revisions to ICPSR website
+
 ## Version 0.4.0
 1. Update for revisions to ICPSR website
 1. Allows email and password to be stored in `.Renviron` for those with a strong preference for keeping account information there.  Saving login information in `.Rprofile` still works as before.

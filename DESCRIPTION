@@ -1,14 +1,16 @@
 Package: icpsrdata
 Type: Package
 Title: Reproducible Data Retrieval from the ICPSR Archive
-Version: 0.4.0
-Date: 2019-05-23
+Version: 0.5.0
+Date: 2020-07-16
 Authors@R: c(
-    person("Frederick", "Solt", email = "frederick-solt@uiowa.edu", role = c("aut", "cre")),
+    person("Frederick", "Solt", email = "frederick-solt@uiowa.edu", role = c("aut", "cre", "cph")),
     person("Kellen", "Gracey", email = "kellen-gracey@uiowa.edu", role = c("aut")),
     person("Eric", "Persson", email = "expersso5@gmail.com", role = c("ctb")),
     person("Joanna", "Pepin", email = "jpepin@prc.utexas.edu", role = c("ctb")),
-    person("J.", "Hathaway", email = "hathawayj@byui.edu", role = c("ctb")))
+    person("J.", "Hathaway", email = "hathawayj@byui.edu", role = c("ctb")),
+    person("Jennifer", "Lin", email = "jenniferlin2025@u.northwestern.edu", role = c("ctb")), 
+    person("John", "Bulloch", email = "john@johnbullock.org", role = c("ctb")))
 Description: Reproducible, programmatic retrieval of datasets from the
     Inter-university Consortium for Political and Social Research archive.
 License: MIT + file LICENSE
@@ -22,4 +24,5 @@ Imports:
     purrr,
     httr,
     utils
-RoxygenNote: 6.1.1
+Encoding: UTF-8
+RoxygenNote: 7.1.0
