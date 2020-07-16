@@ -1,4 +1,4 @@
-[![CRAN version](http://www.r-pkg.org/badges/version/icpsrdata)](https://cran.r-project.org/package=icpsrdata) ![](http://cranlogs.r-pkg.org/badges/grand-total/icpsrdata) [![Travis-CI Build Status](https://travis-ci.org/fsolt/icpsrdata.svg?branch=master)](https://travis-ci.org/fsolt/icpsrdata)
+[![CRAN version](http://www.r-pkg.org/badges/version/icpsrdata)](https://cran.r-project.org/package=icpsrdata) ![](http://cranlogs.r-pkg.org/badges/grand-total/icpsrdata)  [![Travis-CI Build Status](https://travis-ci.org/fsolt/icpsrdata.svg?branch=master)](https://travis-ci.org/fsolt/icpsrdata)
 ------------------------------------------------------------------------
 icpsrdata
 =========
@@ -21,4 +21,4 @@ The terms and conditions for downloading any ICPSR dataset state that one agrees
 But to ensure that one's work can be reproduced, assessed, and built upon by others, one must provide access to the raw data one employed.
 The `icpsrdata` package cuts this knot by providing programmatic, reproducible access to ICPSR's datasets from within R.
 
-For more details, check out [the vignette](https://cran.r-project.org/package=icpsrdata/vignettes/icpsrdata-vignette.html).
+For more details, check out [the vignette](https://fsolt.org/icpsrdata/articles/icpsrdata-vignette.html).
