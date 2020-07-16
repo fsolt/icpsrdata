@@ -4,10 +4,16 @@
 \alias{icpsr_download}
 \title{Download datasets from ICPSR}
 \usage{
-icpsr_download(file_id, email = getOption("icpsr_email"),
-  password = getOption("icpsr_password"), reset = FALSE,
-  download_dir = "icpsr_data", msg = TRUE, unzip = TRUE,
-  delete_zip = unzip)
+icpsr_download(
+  file_id,
+  email = getOption("icpsr_email"),
+  password = getOption("icpsr_password"),
+  reset = FALSE,
+  download_dir = "icpsr_data",
+  msg = TRUE,
+  unzip = TRUE,
+  delete_zip = unzip
+)
 }
 \arguments{
 \item{file_id}{The unique identifier (or optionally a vector of these identifiers)
@@ -55,7 +61,8 @@ The function returns downloaded files.
 }
 \examples{
 \dontrun{
- icpsr_download(file_id = c(3730, 36138))
+ icpsr_download(file_id = c(3730, 36138),
+                download_dir = tempdir()) # remember to specify a directory for your download
 }
 
 }

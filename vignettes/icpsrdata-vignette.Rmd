@@ -40,13 +40,15 @@ Datasets are specified using the `file_id` argument.  ICPSR uses a unique number
 To reproducibly download this dataset:
 
 ```{r eval=FALSE}
-icpsr_download(file_id = 36138)
+icpsr_download(file_id = 36138,
+               download_dir = tempdir()) # remember to specify a directory for your download
 ```
 
 Multiple datasets may be downloaded from the same research area in a single command by passing a vector of ids to `file_id`.  The following downloads the Transatlantic Trends surveys for 2012, 2013, and 2014:
 
 ```{r eval=FALSE}
-icpsr_download(file_id = c(34715, 34973, 36138))
+icpsr_download(file_id = c(34715, 34973, 36138),
+               download_dir = tempdir()) # remember to specify a directory for your download
 ```
 
 After the needed datasets are downloaded, they are, by default, unzipped and ready to be loaded into R using, e.g., `rio::import`.

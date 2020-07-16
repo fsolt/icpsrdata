@@ -37,7 +37,8 @@
 #'
 #' @examples
 #' \dontrun{
-#'  icpsr_download(file_id = c(3730, 36138))
+#'  icpsr_download(file_id = c(3730, 36138),
+#'                 download_dir = tempdir()) # remember to specify a directory for your download
 #' }
 #' 
 #' @importFrom rvest html_session html_form set_values submit_form jump_to follow_link
