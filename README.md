@@ -3,7 +3,7 @@
 icpsrdata
 =========
 
-`icpsrdata` is an R package that provides reproducible, programmatic access to datasets stored in the [Inter-university Consortium for Political and Social Research archive](http://www.icpsr.umich.edu).
+`icpsrdata` is an R package that provides reproducible, programmatic access to datasets stored in the [Inter-university Consortium for Political and Social Research archive](https://www.icpsr.umich.edu).
 
 To install:
 
