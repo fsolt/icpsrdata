@@ -41,7 +41,7 @@
 #'                 download_dir = tempdir()) # remember to specify a directory for your download
 #' }
 #' 
-#' @importFrom rvest html_session html_form set_values submit_form jump_to follow_link
+#' @importFrom rvest session html_form set_values session_submit session_jump_to follow_link
 #' @importFrom purrr walk "%>%"
 #' @importFrom httr content
 #' @importFrom utils unzip
@@ -95,7 +95,7 @@ icpsr_download <- function(file_id,
         # build url
         url <- paste0("http://www.icpsr.umich.edu/cgi-bin/bob/zipcart2?path=ICPSR&study=", item, "&bundle=all&ds=&dups=yes")
         
-        s <- html_session(url)
+        s <- session(url)
         form <- html_form(s)[[2]]
         add_email <- list(name = "email",
                           type = "text",
@@ -116,17 +116,17 @@ icpsr_download <- function(file_id,
         form[["fields"]][["email"]] <- add_email
         form[["fields"]][["password"]] <- add_password
         
-        suppressMessages(agree_terms <- submit_form(s, form) %>% 
-                             jump_to(url))
+        suppressMessages(agree_terms <- session_submit(s, form) %>% 
+                             session_jump_to(url))
         suppressMessages(output <- submit_form(agree_terms, 
                                                html_form(agree_terms)[[2]]) %>% 
-                             follow_link("download your files here"))
+                             session_follow_link("download your files here"))
         
         file_name <- paste0("ICPSR_", sprintf("%05d", item), ".zip")
         file_dir <- file.path(download_dir, file_name)
         writeBin(httr::content(output$response, "raw"), file_dir)
         Sys.sleep(max(length(file_id), 3))
-
+        
         if (unzip == TRUE) utils::unzip(file_dir, exdir = download_dir)
         
         if (delete_zip == TRUE) invisible(file.remove(file_dir))
