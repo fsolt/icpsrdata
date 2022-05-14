@@ -1,3 +1,6 @@
+## Version 0.6.0
+Maintenance release
+
 ## Version 0.5.0
 1. Update for revisions to ICPSR website
 

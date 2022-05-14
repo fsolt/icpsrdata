@@ -41,7 +41,7 @@
 #'                 download_dir = tempdir()) # remember to specify a directory for your download
 #' }
 #' 
-#' @importFrom rvest session html_form set_values session_submit session_jump_to follow_link
+#' @importFrom rvest session html_form set_values session_submit session_jump_to session_follow_link
 #' @importFrom purrr walk "%>%"
 #' @importFrom httr content
 #' @importFrom utils unzip
@@ -118,7 +118,7 @@ icpsr_download <- function(file_id,
         
         suppressMessages(agree_terms <- session_submit(s, form) %>% 
                              session_jump_to(url))
-        suppressMessages(output <- submit_form(agree_terms, 
+        suppressMessages(output <- session_submit(agree_terms, 
                                                html_form(agree_terms)[[2]]) %>% 
                              session_follow_link("download your files here"))
         
