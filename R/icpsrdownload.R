@@ -41,7 +41,7 @@
 #'                 download_dir = tempdir()) # remember to specify a directory for your download
 #' }
 #' 
-#' @importFrom rvest session html_form set_values session_submit session_jump_to session_follow_link
+#' @import rvest
 #' @importFrom purrr walk "%>%"
 #' @importFrom httr content
 #' @importFrom utils unzip
@@ -90,45 +90,46 @@ icpsr_download <- function(file_id,
     # Loop through files
     file_id %>% walk(function(item) {
         # show process
-        if(msg) message("Downloading ICPSR file: ", item, sprintf(" (%s)", Sys.time()))
-        
+        if (msg) 
+            message("Downloading ICPSR file: ",
+                    item,
+                    sprintf(" (%s)", Sys.time()))
         # build url
-        url <- paste0("http://www.icpsr.umich.edu/cgi-bin/bob/zipcart2?path=ICPSR&study=", item, "&bundle=all&ds=&dups=yes")
-        
+        url <- paste0("http://www.icpsr.umich.edu/cgi-bin/bob/zipcart2?path=ICPSR&study=", 
+                      item, "&bundle=all&ds=&dups=yes")
         s <- session(url)
         form <- html_form(s)[[2]]
         add_email <- list(name = "email",
                           type = "text",
-                          value = email,
+                          value = email, 
                           checked = NULL,
                           disabled = NULL,
-                          readonly = NULL,
+                          readonly = NULL, 
                           required = FALSE)
         add_password <- list(name = "password",
                              type = "password",
                              value = password,
                              checked = NULL,
-                             disabled = NULL,
+                             disabled = NULL, 
                              readonly = NULL,
                              required = FALSE)
         attr(add_email, "class") <- "input"
         attr(add_password, "class") <- "input"
         form[["fields"]][["email"]] <- add_email
         form[["fields"]][["password"]] <- add_password
-        
-        suppressMessages(agree_terms <- session_submit(s, form) %>% 
+        suppressMessages(agree_terms <- submit_form(s, form) %>% 
                              session_jump_to(url))
         suppressMessages(output <- session_submit(agree_terms, 
-                                               html_form(agree_terms)[[2]]) %>% 
+                                               html_form(agree_terms)[[2]]) %>%
                              session_follow_link("download your files here"))
-        
-        file_name <- paste0("ICPSR_", sprintf("%05d", item), ".zip")
+        file_name <- paste0("ICPSR_", sprintf("%05d", item), 
+                            ".zip")
         file_dir <- file.path(download_dir, file_name)
         writeBin(httr::content(output$response, "raw"), file_dir)
         Sys.sleep(max(length(file_id), 3))
-        
-        if (unzip == TRUE) utils::unzip(file_dir, exdir = download_dir)
-        
-        if (delete_zip == TRUE) invisible(file.remove(file_dir))
+        if (unzip == TRUE) 
+            utils::unzip(file_dir, exdir = download_dir)
+        if (delete_zip == TRUE) 
+            invisible(file.remove(file_dir))
     })
 }
