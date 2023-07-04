@@ -1,4 +1,8 @@
+<!-- badges: start -->
 [![CRAN version](https://www.r-pkg.org/badges/version/icpsrdata)](https://cran.r-project.org/package=icpsrdata) ![](https://cranlogs.r-pkg.org/badges/grand-total/icpsrdata)
+[![R-CMD-check](https://github.com/fsolt/icpsrdata/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/fsolt/icpsrdata/actions/workflows/R-CMD-check.yaml)
+<!-- badges: end -->
+
 ------------------------------------------------------------------------
 icpsrdata
 =========
