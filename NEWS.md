@@ -1,4 +1,4 @@
-## Version 0.6.0
+## Version 0.6.1
 Maintenance release
 
 ## Version 0.5.0

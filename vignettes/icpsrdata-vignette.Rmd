@@ -10,7 +10,7 @@ vignette: >
 ---
 
 
-The [Inter-university Consortium for Political and Social Research](http://www.icpsr.umich.edu), in its own words, "provides leadership and training in data access, curation, and methods of analysis for a diverse and expanding social science research community."  The ICPSR data archive stores thousands of datasets on a wide range of topics.  Researchers taking advantage of these datasets, however, are caught in a bind.  The terms and conditions for downloading any ICPSR dataset state that one agrees "not to redistribute data or other materials without the written agreement of ICPSR."[^1] But to ensure that one's work can be reproduced, assessed, and built upon by others, one must provide access to the raw data one employed.  The `icpsrdata` package cuts this knot by providing programmatic, reproducible access to ICPSR's datasets from within R. 
+The Inter-university Consortium for Political and Social Research, [in its own words](https://www.icpsr.umich.edu/web/pages/about/), "provides leadership and training in data access, curation, and methods of analysis for the social science research community."  The ICPSR data archive stores thousands of datasets on a wide range of topics.  Researchers taking advantage of these datasets, however, are caught in a bind.  The terms and conditions for downloading any ICPSR dataset state that one agrees "not to redistribute data or other materials without the written agreement of ICPSR."[^1] But to ensure that one's work can be reproduced, assessed, and built upon by others, one must provide access to the raw data one employed.  The `icpsrdata` package cuts this knot by providing programmatic, reproducible access to ICPSR's datasets from within R. 
 
 ## Setup
 
@@ -19,7 +19,7 @@ After that information is input once, it will be entered automatically for any o
 
 To change this contact information within a session, one may set the argument `reset` to `TRUE` when running `icpsr_download` again, and the function will again request the required information. 
 
-An optional, but highly recommended, setup step is to add the login information ICPSR requires to your [.Rprofile](http://www.statmethods.net/interface/customizing.html) as in the following example:
+An optional, but highly recommended, setup step is to add the login information ICPSR requires to your [.Rprofile](https://www.statmethods.net/interface/customizing.html) as in the following example:
 
 ```{r eval = FALSE}
 options("icpsr_email" = "juanita-herrera@uppermidwest.edu",
