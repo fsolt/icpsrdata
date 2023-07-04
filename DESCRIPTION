@@ -25,5 +25,5 @@ Imports:
     utils
 Encoding: UTF-8
 RoxygenNote: 7.2.3
-URL: https://github.com/fsolt/icpsrdata, http://fsolt.org/icpsrdata/
+URL: https://github.com/fsolt/icpsrdata, https://fsolt.org/icpsrdata/
 BugReports: https://github.com/fsolt/icpsrdata/issues
