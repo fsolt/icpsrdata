@@ -19,7 +19,7 @@ Suggests:
     rmarkdown
 VignetteBuilder: knitr
 Imports:
-    rvest,
+    rvest (>= 1.0.0),
     purrr,
     httr,
     utils
