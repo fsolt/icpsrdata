@@ -117,7 +117,7 @@ icpsr_download <- function(file_id,
         attr(add_password, "class") <- "input"
         form[["fields"]][["email"]] <- add_email
         form[["fields"]][["password"]] <- add_password
-        suppressMessages(agree_terms <- submit_form(s, form) %>% 
+        suppressMessages(agree_terms <- session_submit(s, form) %>% 
                              session_jump_to(url))
         suppressMessages(output <- session_submit(agree_terms, 
                                                html_form(agree_terms)[[2]]) %>%
